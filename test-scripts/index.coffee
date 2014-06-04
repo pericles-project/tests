@@ -1,4 +1,3 @@
-fs = require 'fs'
 restler = require 'restler'
 
 describe "Test", ->
