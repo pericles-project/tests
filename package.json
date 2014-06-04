@@ -11,7 +11,7 @@
     "coffee-script": "^1.7.1"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --colors --reporter spec --compilers coffee:coffee-script/register index.coffee"
+    "test": "node_modules/.bin/mocha --colors --reporter spec --compilers coffee:coffee-script/register test-scripts/*.coffee"
   },
   "repository": {
     "type": "git",

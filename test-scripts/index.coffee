@@ -1,4 +1,5 @@
 restler = require 'restler'
+assert = require 'assert'
 
 describe "Test", ->
   describe "encode()", ->
@@ -24,17 +25,32 @@ describe "Test", ->
 
           throw new Error "Call to component #{componentConfig.id} at #{componentConfig.url} did not return a wiid." if not result.wiid?
 
-          setInterval ->
+          assert.equal 'object', typeof result
+          assert.equal 'string', typeof result.wiid
+
+          currentState = ''
+
+          interval = setInterval ->
             console.info "Trying to get status from component #{componentConfig.id} at #{componentConfig.url}..."
-            restler.get "#{componentConfig.url}/status/#{result.wiid}", (result) => 
+            restler.get "#{componentConfig.url}/status/#{result.payload.wiid}/#{result.payload.wstep}", (result) => 
               throw new Error result.message if result instanceof Error
               result = JSON.parse result
 
               throw new Error "Call to component #{componentConfig.id} at #{componentConfig}/status/#{result.wiid} did not return a state." if not result.state?
+              
+              currentState = result.state
+
+              assert.equal 'object', typeof result
+              assert.equal 'string', typeof result.state
 
               if result.state is 'COMPLETED'
                 done()
-          , 5000
+              else if result.state is 'FAILED'
+                throw new Error "Component #{componentConfig.id} failed at #{wf.id}/0." if result instanceof Error
+          , 5 * 1000
 
-
-          done()
+          setTimeout ->
+            if currentState is 'PENDING'
+              throw new Error "Component #{componentConfig.id} seems to have a problem at #{wf.id}/0." if result instanceof Error
+              clearInterval interval
+          , 30 * 1000
