@@ -4,7 +4,7 @@ Tests
 Test scripts for PERICLES.
 
 ## Requirements
-* Node JS (http://nodejs.org/)
+* [Node JS](http://nodejs.org/)
 
 ## Installation
 * Coffeescript:
