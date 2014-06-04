@@ -30,7 +30,7 @@ describe "Test", ->
 
           setInterval ->
             console.info "Trying to get status from component #{componentConfig.id} at #{componentConfig.url}..."
-            restler.get "#{componentConfig.url}/status/#{result.wiid}", (result) => 
+            restler.get "#{componentConfig.url}/status/#{result.payload.wiid}/#{result.payload.wstep}", (result) => 
               throw new Error result.message if result instanceof Error
               result = JSON.parse result
 
