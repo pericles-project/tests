@@ -8,12 +8,15 @@ Test scripts for PERICLES.
 
 ## Installation
 * Coffeescript:
+
 `npm install coffee-script`
 
 * Restler:
+
 `npm install restler`
 
 * Mocha testing framework:
+
 `npm install mocha -g`
 
 ## Run
