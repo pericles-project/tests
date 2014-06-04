@@ -23,15 +23,17 @@ describe "Test", ->
           throw new Error result.message if result instanceof Error
           result = JSON.parse result
 
-          console.info result
+          throw new Error "Call to component #{componentConfig.id} at #{componentConfig.url} did not return a wiid." if not result.wiid?
 
           setInterval ->
-            console.info 'Trying to get status from component #{componentConfig.id} at #{componentConfig.url}...'
-            restler.get "#{componentConfig.url}/{#{wf.id}/0}", (result) => 
+            console.info "Trying to get status from component #{componentConfig.id} at #{componentConfig.url}..."
+            restler.get "#{componentConfig.url}/status/#{result.wiid}", (result) => 
               throw new Error result.message if result instanceof Error
               result = JSON.parse result
 
-              if result.statusCode is '200'
+              throw new Error "Call to component #{componentConfig.id} at #{componentConfig}/status/#{result.wiid} did not return a state." if not result.state?
+
+              if result.state is 'COMPLETED'
                 done()
           , 5000
 
