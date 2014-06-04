@@ -1,5 +1,4 @@
 fs = require 'fs'
-$ = require 'jquery'
 restler = require 'restler'
 
 describe "Test", ->
