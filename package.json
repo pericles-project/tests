@@ -4,7 +4,9 @@
   "description": "tests =====",
   "main": "index.js",
   "dependencies": {
+    "coffee-script": "^1.7.1",
     "jquery": "^2.1.1",
+    "mocha": "^1.20.1",
     "restler": "^3.2.2"
   },
   "devDependencies": {
